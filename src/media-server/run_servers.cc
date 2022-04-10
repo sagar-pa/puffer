@@ -121,9 +121,11 @@ int run_ws_media_servers()
     "video_sent", "video_acked"};
 
   /* Remove ipc directory prior to starting Media Server */
-  string ipc_dir = "pensieve_ipc";
-  if (fs::exists(ipc_dir)) {
-    fs::remove_all(ipc_dir);
+  std::list<std::string> ipc_dirs {"pensieve_ipc", "python_ipc"};
+  for (auto const& ipc_dir : ipc_dirs){
+    if (fs::exists(ipc_dir)) {
+      fs::remove_all(ipc_dir);
+    }
   }
 
   /* run media servers in each experimental group */
